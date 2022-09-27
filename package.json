@@ -1,11 +1,25 @@
 {
-  "name": "nandit-vue-vant",
+  "name": "vue3-packages-study",
   "version": "0.1.0",
-  "private": true,
+  "description": "基于vue3的工程测试npm打包发布",
+  "private": false,
+  "main": "lib/index.min.js",
+  "module": "lib/index.esm.js",
+  "typings": "lib/index.d.ts",
+  "keyword": "vue3 vant",
+  "license": "MIT",
+  "author": {
+    "name": "akingde",
+    "email": "akingde@sina.com"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "build": "yarn build:clean && yarn build:lib && yarn build:esm-bundle && rimraf lib/demo.html",
+    "build:clean": "rimraf lib",
+    "build:lib": "vue-cli-service build --target lib --name index --dest lib packages/index.ts",
+    "build:esm-bundle": "rollup --config ./build/rollup.config.js"
   },
   "dependencies": {
     "core-js": "^3.8.3",
@@ -13,6 +27,11 @@
     "vue-class-component": "^8.0.0-0"
   },
   "devDependencies": {
+    "@rollup/plugin-node-resolve": "^13.0.5",
+    "rollup": "^2.58.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "rollup-plugin-vue": "^6.0.0",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "@vue/cli-plugin-babel": "~5.0.0",
